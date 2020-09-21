@@ -1,0 +1,6 @@
+map/
+node_modules/
+.env
+Data/
+build/
+httptest

@@ -1,0 +1,15 @@
+# POST http://localhost:8080/map/getpath HTTP/1.1
+# content-type: application/json
+
+# {
+#     "pointa":{
+#         "lat":27.429890,
+#         "lng":89.646781
+#     },
+#     "pointb":{
+#         "lat":27.465511,
+#         "lng":89.637372
+#     }
+# }
+
+GET http://localhost:8080/map/searchaddress/gochukhalam63
