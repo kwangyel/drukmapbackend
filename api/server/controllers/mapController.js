@@ -84,6 +84,7 @@ class mapController{
 	// }
 
 	static async searchAddress(req,res){
+		util.setData(null)
 		const {address} = req.params
 		try{
 			const places = await mapServices.searchAddress(address);
@@ -101,16 +102,16 @@ class mapController{
 	}
 
 	static async getpath(req,res){
+		util.setData(null)
 		const a = req.body.pointa;
 		const b = req.body.pointb;
 		try{
 			const path = await mapServices.getpath(a,b);
-
 			if(path.length){
 				const thepath = path.map((row)=>{
 					let geojson = {"type":"MultiLineString"}
-					geojson.properties = {id:row.seq}
-					geojson.coordinates = row.geom.coordinates
+					geojson.properties = {seq:row.seq}
+					geojson.coordinates = row.the_geom.coordinates
 					return geojson
 				})
 				util.setSuccess(200,"found places");
@@ -121,6 +122,7 @@ class mapController{
 			return util.send(res);
 		}catch(err){
 			util.setError(400,err);
+			console.log(err)
 			return util.send(res);
 		}
 	}

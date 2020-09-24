@@ -47,9 +47,10 @@ class mapServices{
 	static async getpath(a,b){
 		try{
 			console.log(a)
-			const result = await database.sequelize.query(`Select seq, node, edge,'cost', geom, agg_cost from pgr_dijkstra( 'Select gid as id, source, target, fact_cost as cost,fact_rcost as reverse_cost from thimphu_f',(SELECT source FROM thimphu_f ORDER BY geom <-> ST_SetSRID(ST_Point (${b.lng},${b.lat}),4326) LIMIT 1), (SELECT source FROM thimphu_f ORDER BY geom <-> ST_SetSRID(ST_Point (${a.lng},${a.lat}),4326) limit 1), true) as di JOIN thimphu_f pt ON (di.edge = pt.gid);`)
+			// const result = await database.sequelize.query(`Select seq, node, edge,'cost', geom, agg_cost from pgr_dijkstra( 'Select gid as id, source, target, fact_cost as cost,fact_rcost as reverse_cost from thimphu_f',(SELECT source FROM thimphu_f ORDER BY geom <-> ST_SetSRID(ST_Point (${a[0]},${a[1]}),4326) LIMIT 1), (SELECT source FROM thimphu_f ORDER BY geom <-> ST_SetSRID(ST_Point (${b[0]},${b[1]}),4326) limit 1), true) as di JOIN thimphu_f pt ON (di.edge = pt.gid);`)
 			// const result = await database.sequelize.query("Select seq, node, edge,'cost', geom from pgr_dijkstra( 'Select gid as id, source, target, cost as cost , rcost as reverse_cost from thimphu', 180,218, true) as di JOIN thimphu pt ON di.edge = pt.gid ;");
 
+			const result = await database.sequelize.query(`Select seq, node, edge,'cost', the_geom, agg_cost from pgr_dijkstra( 'Select gid as id, source, target, cost as cost,rcost as reverse_cost from network',(SELECT source FROM network ORDER BY the_geom <-> ST_SetSRID(ST_Point (${a[0]},${a[1]}),4326) LIMIT 1), (SELECT source FROM network ORDER BY the_geom <-> ST_SetSRID(ST_Point (${b[0]},${b[1]}),4326) limit 1), true) as di JOIN network pt ON (di.edge = pt.gid);`)
 			return result[0];
 
 		}catch(error){
