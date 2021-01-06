@@ -86,6 +86,7 @@ class mapController{
 	static async searchAddress(req,res){
 		util.setData(null)
 		const {address} = req.params
+		console.log(address)
 		try{
 			const places = await mapServices.searchAddress(address);
 			if(places.length){
@@ -96,6 +97,7 @@ class mapController{
 			}
 			return util.send(res);
 		}catch(err){
+			console.log(err)
 			util.setError(400,err);
 			return util.send(res);
 		}

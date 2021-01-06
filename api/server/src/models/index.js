@@ -37,6 +37,13 @@ if(config.environment ==='production'){
 	sequelize=new Sequelize(
 		config.database,config.username,config.password,config
 	);
+	//testing connection
+	// try{
+	// 	sequelize.authenticate()
+	// 	console.log('connected')
+	// }catch(err){
+	// 	console.log(err)
+	// }
 }
 
 fs

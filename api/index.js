@@ -6,6 +6,7 @@ import bodyparser from 'body-parser';
 import config from 'dotenv';
 import cors from 'cors';
 import mapRoutes from './server/routes/mapRoutes'
+import authRoutes from './server/routes/authRoutes'
 
 config.config();
 
@@ -23,6 +24,7 @@ app.get('/',(req,res)=>{
 	})
 });
 app.use('/map',mapRoutes)
+app.use('/auth',authRoutes)
 
 app.listen(port,()=>{
 	console.log(`server listening on port ${port}`)
